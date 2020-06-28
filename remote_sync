@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+printf "Watching files\n"
+fswatch -o -e .git/ -e .githooks/ -e .gitattributes -e .githooks -e .DS_Store -e /cache /Users/foo/bar/project | \
+xargs -I{} bash -c 'rsync -varz -e "ssh" --exclude ".DS_Store" --exclude ".git" --exclude ".githooks" --exclude ".gitattributes" --exclude "/cache" --progress /Users/foo/bar/project ssh-host:/home/user/www; osascript -e '"'"'display notification "Finished sync" with title "Remote Sync"'"'"''
